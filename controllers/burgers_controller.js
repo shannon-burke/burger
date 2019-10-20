@@ -2,10 +2,35 @@ var express = require("express");
 var router = express.Router();
 var burger = require("../models/burger");
 
-//router.get
+router.get("/", function (req, res) {
+    burger.selectAll(burgers, function (data) {
+        var burgerObject = {
+            burgers: data
+        };
+        res.render("index", burgerObject);
+    });
+});
 
-//router.post
+router.post("/createBurger", function (req, res) {
+    burger.create(["burger_name", "devoured"],
+        [req.body.burger, false],
+        function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            console.log("posted");
+            res.redirect("/");
+        });
+});
 
-//router.put
+router.put("/eatDaBurger/:id", function (req, res) {
+    let condition = "id = " + req.params.id;
+    burger.updateInfo({ devoured: req.body.devoured }, condition, function (result) {
+        if (result.changedRows === 0) {
+            return res.status(404).end();
+        }
+        res.redirect("/");
+    });
+});
 
 module.exports = router;
