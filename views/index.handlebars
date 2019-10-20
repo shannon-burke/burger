@@ -1,3 +1,36 @@
-<!--set up the file to have the template that Handlebars can render onto
+<div class="container">
+    <h1 id="burger-title">Eat-Da-Burgers!</h1>
+    <img src="https://media.giphy.com/media/3o84TYShVxcDbZEx2g/giphy.gif" alt="eat the burger GIF">
+    <div class="row">
+        <div id="uneaten-div" class="col-sm-12 col-md-6">
+            <h2 class="list-title">Burgers to eat:</h2>
+            <ul id="uneaten-list">
+                {{#each burgers}}
+                {{#unless this.devoured}}
+                <li id="uneaten-item">
+                    {{this.id}}. {{this.burger_name}} <button id="devour-button"
+                        data-burgerid="{{id}}">Eat-da-Burger!</button>
+                </li>
+                {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
 
-create a button that will submit the user input into the database-->
+        <div id="eaten-div" class="col-sm-12 col-md-6">
+            <h2 class="list-title">Burgers already eaten:</h2>
+            <ul id="eaten-list">
+                {{#each burgers}}
+                {{#if this.devoured}}
+                <li id="eaten-item">
+                    {{this.id}}. {{this.burger_name}}
+                </li>
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    <form action="/createBurger" method="POST">
+        <input type="text" id="burger-input" name="burger" placeholder="Enter a burger to devour!">
+        <button type="submit" id="add-burger">Add a burger!</button>
+    </form>
+</div>

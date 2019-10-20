@@ -32,8 +32,7 @@ var orm = {
 
         stringQuery += " (";
         stringQuery += cols.toString();
-        stringQuery += ") ";
-        stringQuery += "VALUES (";
+        stringQuery += ") VALUES (";
         stringQuery += questionMarks(vals.length);
         stringQuery += ") ";
 
