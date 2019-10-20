@@ -1,8 +1,22 @@
 var orm = require("../config/orm");
 mysql = require("mysql");
 
-// create code that will call the ORM functions using burger specific input for the ORM.
-
-
+var burger = {
+    selectAll: function (table, cb) {
+        orm.selectAll("burgers", function (res) {
+            cb(res);
+        });
+    },
+    create: function (colName, valOfCol, cb) {
+        orm.create("burgers", colName, valOfCol, function (res) {
+            cb(res);
+        });
+    },
+    updateInfo: function (valOfCol, condition, cb) {
+        orm.updateInfo("burgers", valOfCol, condition, function (res) {
+            cb(res);
+        });
+    }
+};
 
 module.exports = burger;
